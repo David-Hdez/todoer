@@ -14,14 +14,14 @@ def create_app():
     # SECRET_KEY define las sesiones para la aplicacion
     app.config.from_mapping(
         SECRET_KEY='b328kQ3U8R55Xh',
-        DATABASE_HOST=os.environ.get('TODOER_DATABASE_HOST'),
-        DATABASE_PASSWORD=os.environ.get('TODOER_DATABASE_PASSWORD'),
-        DATABASE_USER=os.environ.get('TODOER_DATABASE_USER'),
-        DATABASE=os.environ.get('TODOER_DATABASE')
+        DATABASE_HOST=os.environ.get('FLASK_DATABASE_HOST'),
+        DATABASE_PASSWORD=os.environ.get('FLASK_DATABASE_PASSWORD'),
+        DATABASE_USER=os.environ.get('FLASK_DATABASE_USER'),
+        DATABASE=os.environ.get('FLASK_DATABASE')
     )
 
     from . import db
-    # app created to init_app
+    # app created to init_app for configuration
     db.init_app(app)
 
     @app.route('/tests')
