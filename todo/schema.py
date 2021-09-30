@@ -6,14 +6,14 @@ instructions = [
     'SET FOREIGN_KEY_CHECKS=1;',
     """
     CREATE TABLE user(
-        id INT PRIMARY KEY AUTOINCREMENT,
+        id INT PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(50) UNIQUE NOT NULL,
-        password VARHCAR(100) NOT NULL
+        password VARCHAR(100) NOT NULL
     )
     """,
     """
     CREATE TABLE todo(
-        id INT PRIMARY KEY AUTOINCREMENT,
+        id INT PRIMARY KEY AUTO_INCREMENT,
         created_by INT NOT NULL,
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         description TEXT NOT NULL,
