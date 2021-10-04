@@ -1,7 +1,7 @@
 import functools
 # flask: enviar mensajes a las plantillas
 from flask import (
-    Blueprint, flash, g, render_template, request, url_for, session
+    Blueprint, flash, g, render_template, request, url_for, session, redirect
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from todo.db import get_db
@@ -19,7 +19,7 @@ def register():
         error = None
 
         c.execute(
-            "SELECT id FROM user WHERE username = %s"
+            "SELECT id FROM user WHERE username = %s", (username,)
         )
 
         if not username:
@@ -30,7 +30,7 @@ def register():
             error = 'User {} is registered'.format(username)
 
         if error is None:
-            db.execute(
+            c.execute(
                 "INSERT INTO user (username, password) VALUES (%s, %s)",
                 (username, generate_password_hash(password)),
             )
