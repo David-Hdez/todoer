@@ -26,8 +26,7 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-
-    return 'creating'
+    return render_template('todo/create.html')
 
 
 @bp.route('/update', methods=('GET', 'POST'))
