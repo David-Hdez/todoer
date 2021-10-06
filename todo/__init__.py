@@ -24,9 +24,11 @@ def create_app():
     # app created to init_app for configuration
     db.init_app(app)
 
-    # Authentication blueprint
     from . import auth
+    from . import todo
+    # Authentication blueprint
     app.register_blueprint(auth.bp)
+    app.register_blueprint(todo.bp)
 
     @app.route('/tests')
     def hello():

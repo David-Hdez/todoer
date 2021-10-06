@@ -1,5 +1,5 @@
 import functools
-# flask: enviar mensajes a las plantillas
+# flash: enviar mensajes a las plantillas
 from flask import (
     Blueprint, flash, g, render_template, request, url_for, session, redirect
 )
@@ -68,3 +68,35 @@ def login():
         flash(error)
 
     return render_template('auth/login.html')
+
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        db, c = get_db()
+        c.execute(
+            'SELECT * FROM user WHERE id = %s', (user_id,)
+        )
+        # fetchone() return first element
+        g.user = c.fetchone()
+
+
+# Funcion decoradora
+# Recibe como argumento una función
+def login_required(view):
+    """
+    Protegiendo rutas
+    """
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            # Usuario no ha iniciado sesión
+            redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
