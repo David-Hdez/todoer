@@ -2,7 +2,7 @@
 
 {% block header %}
     <h1>{% block title %}Todos{% endblock %}</h1>
-    {% if g.user['id'] == post['author_id'] %}
+    {% if g.user %}
         <a class="action" href="{{ url_for('todo.create') }}">Nuevo Todo</a>
     {% endif %}
 {% endblock %}

@@ -21,3 +21,17 @@ def index():
     todos = c.fetchall()
 
     return render_template('todo/index.html', todos=todos)
+
+
+@bp.route('/create', methods=('GET', 'POST'))
+@login_required
+def create():
+
+    return 'creating'
+
+
+@bp.route('/update', methods=('GET', 'POST'))
+@login_required
+def update():
+
+    return 'updating'
