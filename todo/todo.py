@@ -16,7 +16,9 @@ def index():
     """
     db, c = get_db()
     c.execute(
-        'SELECT td.id, td.description, usr.username, td.completed, td.created_at FROM todo td JOIN user usr ON td.created_by = usr.id ORDER BY created_at DESC'
+        'SELECT td.id, td.description, usr.username, td.completed, td.created_at '
+        'FROM todo td JOIN user usr ON td.created_by = usr.id '
+        'ORDER BY created_at DESC'
     )
     todos = c.fetchall()
 
@@ -26,11 +28,30 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
+    if request.method == 'POST':
+        description = request.form['description']
+        error = None
+
+        if description is None:
+            error = 'Description is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db, c = get_db()
+            c.execute(
+                'INSERT INTO todo (description, completed, created_by) '
+                'VALUES (%s, %s, %s)',
+                (description, False, g.user['id'])
+            )
+            db.commit()
+
+            return redirect(url_for('todo.index'))
+
     return render_template('todo/create.html')
 
 
 @bp.route('/update', methods=('GET', 'POST'))
 @login_required
 def update():
-
     return 'updating'
