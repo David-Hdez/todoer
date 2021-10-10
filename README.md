@@ -1,6 +1,6 @@
 # todoer
 
-Flask y mysql.connector
+Todos: crear editar y eliminar tareas.
 
 ## Packages
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
