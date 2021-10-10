@@ -55,7 +55,7 @@ def get_todo(id):
     db, c = get_db()
     c.execute(
         'SELECT td.id, td.description, td.completed, td.created_by, td.created_at, usr.username '
-        'FROM todo td JOIN user usr ON td.created_by = usr.id WHERE usr.id = %s',
+        'FROM todo td JOIN user usr ON td.created_by = usr.id WHERE td.id = %s',
         (id,)
     )
 
@@ -99,5 +99,14 @@ def update(id):
 
 @bp.route('/<int:id>/delete', methods=['POST'])
 @login_required
-def delete():
-    return 'deleted'
+def delete(id):
+    db, c = get_db()
+
+    c.execute(
+        'DELETE FROM todo WHERE id = %s',
+        (id,)
+    )
+
+    db.commit()
+
+    return redirect(url_for('todo.index'))
