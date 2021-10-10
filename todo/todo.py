@@ -25,7 +25,7 @@ def index():
     return render_template('todo/index.html', todos=todos)
 
 
-@bp.route('/create', methods=('GET', 'POST'))
+@bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
     if request.method == 'POST':
@@ -51,7 +51,53 @@ def create():
     return render_template('todo/create.html')
 
 
-@bp.route('/update', methods=('GET', 'POST'))
+def get_todo(id):
+    db, c = get_db()
+    c.execute(
+        'SELECT td.id, td.description, td.completed, td.created_by, td.created_at, usr.username '
+        'FROM todo td JOIN user usr ON td.created_by = usr.id WHERE usr.id = %s',
+        (id,)
+    )
+
+    todo = c.fetchone()
+
+    if todo is None:
+        abort(404, "Todo con identificador {0} no existe".format(id))
+
+    return todo
+
+
+@bp.route('/<int:id>/update', methods=['GET', 'POST'])
 @login_required
-def update():
-    return 'updating'
+def update(id):
+    todo = get_todo(id)
+
+    if request.method == 'POST':
+        description = request.form['description']
+        # checkbox from form
+        completed = True if request.form.get('completed') == 'on' else False
+        error = None
+
+        if not description:
+            error = 'Description is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db, c = get_db()
+            c.execute(
+                'UPDATE todo SET description = %s, completed = %s '
+                'WHERE id = %s',
+                (description, completed, id)
+            )
+            db.commit()
+
+            return redirect(url_for('todo.index'))
+
+    return render_template('todo/update.html', todo=todo)
+
+
+@bp.route('/<int:id>/delete', methods=['POST'])
+@login_required
+def delete():
+    return 'deleted'
