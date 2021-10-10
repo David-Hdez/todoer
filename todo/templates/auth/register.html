@@ -5,11 +5,19 @@
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        <label for="username"></label>
-        <input type="text" name="username" id="username" required>
-        <label for="password"></label>
-        <input type="password" name="password" id="password" required>
-        <input type="submit" value="Registrarse">
-    </form>
+<div class="row">
+    <div class="col-lg-6">
+        <form method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Registrarse">
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block header %}
     <h1>{% block title %}Todos{% endblock %}</h1>
     {% if g.user %}
-        <a class="action" href="{{ url_for('todo.create') }}">Nuevo Todo</a>
+        <a class="action btn btn-primary btn-lg" href="{{ url_for('todo.create') }}">Nuevo Todo</a>
     {% endif %}
 {% endblock %}
 
@@ -21,7 +21,7 @@
                 </h1>
                 <div class="about">
                     {{ todo['created_at'].strftime('%Y-%m-%d') }}
-                    <a class="action" href="{{ url_for('todo.update', id=todo['id']) }}">Editar</a>
+                    <a class="action btn btn-light" href="{{ url_for('todo.update', id=todo['id']) }}">Editar</a>
                 </div>
             </div>
         </li>

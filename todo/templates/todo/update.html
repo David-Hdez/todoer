@@ -5,16 +5,26 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST">
-    <label for="description">Descripción</label>
-    <!--value from the selected todo from database or form-->
-    <input type="text" name="description" id="description"
-        value="{{ request.form['description'] or todo['description'] }}" required>
-    <label for="completed">Completado</label>
-    <input type="checkbox" name="completed" id="completed" {% if todo['completed'] == 1 %}checked{% endif %}>
-    <input type="submit" value="Guardar">
-</form>
-<form action="{{ url_for('todo.delete', id=todo['id']) }}" method="POST">
-    <input class="danger" type="submit" value="Eliminar" onclick="return confirm('¿Esta seguro que desea eliminarlo?')">
-</form>
+<div class="row">
+    <form method="POST">
+        <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <!--value from the selected todo from database or form-->
+            <input type="text" class="form-control" name="description" id="description"
+                value="{{ request.form['description'] or todo['description'] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="completed" class="form-check-label">Completado</label>
+            <input type="checkbox" class="form-check-input" name="completed" id="completed" {% if todo['completed']==1
+                %}checked{% endif %}>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Guardar">
+    </form>
+</div>
+<div class="row mt-5">
+    <form action="{{ url_for('todo.delete', id=todo['id']) }}" method="POST">
+        <input class="btn btn-danger" type="submit" value="Eliminar"
+            onclick="return confirm('¿Esta seguro que desea eliminarlo?')">
+    </form>
+</div>
 {% endblock %}

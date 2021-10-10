@@ -6,8 +6,10 @@
 
 {% block content %}
 <form method="post">
-    <label for="description">Descripción</label>
-    <input type="text" name="description" id="description" required>
-    <input type="submit" value="Guardar">
+    <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <input type="text" class="form-control" name="description" id="description" required>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Guardar">
 </form>
 {% endblock %}
