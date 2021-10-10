@@ -18,7 +18,9 @@ def index():
     c.execute(
         'SELECT td.id, td.description, usr.username, td.completed, td.created_at '
         'FROM todo td JOIN user usr ON td.created_by = usr.id '
-        'ORDER BY created_at DESC'
+        'WHERE td.created_by = %s '
+        'ORDER BY created_at DESC',
+        (g.user['id'],)
     )
     todos = c.fetchall()
 
@@ -87,8 +89,8 @@ def update(id):
             db, c = get_db()
             c.execute(
                 'UPDATE todo SET description = %s, completed = %s '
-                'WHERE id = %s',
-                (description, completed, id)
+                'WHERE id = %s AND created_by = %s',
+                (description, completed, id, g.user['id'])
             )
             db.commit()
 
@@ -103,8 +105,8 @@ def delete(id):
     db, c = get_db()
 
     c.execute(
-        'DELETE FROM todo WHERE id = %s',
-        (id,)
+        'DELETE FROM todo WHERE id = %s AND created_by = %s',
+        (id, g.user['id'])
     )
 
     db.commit()
