@@ -95,7 +95,7 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             # Usuario no ha iniciado sesión
-            redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login'))
 
         return view(**kwargs)
 
