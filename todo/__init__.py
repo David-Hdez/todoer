@@ -13,7 +13,7 @@ def create_app():
     # Variables de entorno para configurar
     # SECRET_KEY define las sesiones para la aplicacion
     app.config.from_mapping(
-        SECRET_KEY='b328kQ3U8R55Xh',
+        SECRET_KEY='THEKEY',
         DATABASE_HOST=os.environ.get('FLASK_DATABASE_HOST'),
         DATABASE_PASSWORD=os.environ.get('FLASK_DATABASE_PASSWORD'),
         DATABASE_USER=os.environ.get('FLASK_DATABASE_USER'),

@@ -15,7 +15,6 @@ def get_db():
     if 'db' not in g:
         g.db = mysql.connector.connect(user=current_app.config['DATABASE_USER'],
                                        password=current_app.config['DATABASE_PASSWORD'],
-                                       host=current_app.config['DATABASE_HOST'],
                                        database=current_app.config['DATABASE'])
 
         # Use cursor to exec queries

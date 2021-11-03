@@ -7,7 +7,7 @@ Todos: crear editar y eliminar tareas.
 - [MySQL Connector/Python](https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html)
 
 ## Environment variables
-```bash
+```shell
 set FLASK_ENV=development
 ```
 ```bash
